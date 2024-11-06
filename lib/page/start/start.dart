@@ -1,8 +1,5 @@
-import 'dart:async' show Future;
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:my_app/page/start/repository.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -14,6 +11,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final startRepo = StartRepository();
+
   String _result = "n.a.";
 
   _fab() {
@@ -21,26 +20,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _loadData() {
-    _loadRemoteData().then((String result) {
+    startRepo.loadData().then((String? result) {
       setState(() {
-        _result = result;
+        _result = result ?? "";
       });
     });
-  }
-
-  Future<String> _loadRemoteData() async {
-    final response = await (http.get(Uri.parse('https://oreil.ly/ndCPN')));
-    if (response.statusCode == 200) {
-      if (kDebugMode) {
-        print('response statusCode is 200');
-      }
-      return response.body;
-    } else {
-      if (kDebugMode) {
-        print('Http Error: ${response.statusCode}!');
-      }
-      throw Exception('Invalid data source.');
-    }
   }
 
   handleClick(String value) {
