@@ -42,16 +42,27 @@ class _MyWebPageState extends State<WebPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        WebViewWidget(
-          controller: controller,
+    return Scaffold(
+        appBar: AppBar(
+          // TRY THIS: Try changing the color here to a specific color (to
+          // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+          // change color while the other colors stay the same.
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
         ),
-        if (loadingPercentage < 100)
-          LinearProgressIndicator(
-            value: loadingPercentage / 100.0,
-          ),
-      ],
-    );
+        //passing in the ListView.builder
+        body: Stack(
+          children: [
+            WebViewWidget(
+              controller: controller,
+            ),
+            if (loadingPercentage < 100)
+              LinearProgressIndicator(
+                value: loadingPercentage / 100.0,
+              ),
+          ],
+        ));
   }
 }
