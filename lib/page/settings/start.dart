@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class WebPage extends StatefulWidget {
-  const WebPage({super.key, required this.title});
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<WebPage> createState() => _MyWebPageState();
+  State<SettingsPage> createState() => _MySettingsPageState();
 }
 
-class _MyWebPageState extends State<WebPage> {
+class _MySettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {

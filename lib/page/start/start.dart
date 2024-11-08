@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/page/start/repository.dart';
 
+import '../settings/start.dart';
+import '../web/start.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -32,7 +35,19 @@ class _MyHomePageState extends State<MyHomePage> {
       case 'Load JSON':
         _loadData();
         break;
+      case 'Web':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const WebPage(title: 'Web')),
+        );
+        break;
       case 'Settings':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const SettingsPage(title: 'Settings')),
+        );
         break;
     }
   }
@@ -44,10 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -55,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
           PopupMenuButton<String>(
             onSelected: handleClick,
             itemBuilder: (BuildContext context) {
-              return {'Load JSON', 'Settings'}.map((String choice) {
+              return {'Load JSON', 'Web', 'Settings'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
@@ -74,8 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Semantics(
                 child: Text(
-                  _result,
-                )),
+              _result,
+            )),
           ],
         ),
       ),
