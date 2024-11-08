@@ -11,12 +11,30 @@ class WebPage extends StatefulWidget {
 }
 
 class _MyWebPageState extends State<WebPage> {
+  var loadingPercentage = 0;
   late final WebViewController controller;
 
   @override
   void initState() {
     super.initState();
     controller = WebViewController()
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (url) {
+          setState(() {
+            loadingPercentage = 0;
+          });
+        },
+        onProgress: (progress) {
+          setState(() {
+            loadingPercentage = progress;
+          });
+        },
+        onPageFinished: (url) {
+          setState(() {
+            loadingPercentage = 100;
+          });
+        },
+      ))
       ..loadRequest(
         Uri.parse('https://flutter.dev'),
       );
@@ -24,13 +42,16 @@ class _MyWebPageState extends State<WebPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter WebView'),
-      ),
-      body: WebViewWidget(
-        controller: controller,
-      ),
+    return Stack(
+      children: [
+        WebViewWidget(
+          controller: controller,
+        ),
+        if (loadingPercentage < 100)
+          LinearProgressIndicator(
+            value: loadingPercentage / 100.0,
+          ),
+      ],
     );
   }
 }
