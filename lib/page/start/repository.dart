@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +18,9 @@ class StartRepository {
 
   Future<String> loadLocalData() async {
     final String s = await rootBundle.loadString('assets/demo.json');
-    //final data = await json.decode(response);
+
+    final data = await json.decode(s);
+    
     if (kDebugMode) {
       print('returns data from assets');
     }
