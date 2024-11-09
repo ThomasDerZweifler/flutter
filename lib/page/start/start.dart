@@ -30,16 +30,26 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _loadLocalData() {
+    startRepo.loadLocalData().then((String? result) {
+      setState(() {
+        _result = result ?? "";
+      });
+    });
+  }
+
   handleClick(String value) {
     switch (value) {
-      case 'Load JSON':
+      case 'Load JSON remote(cached)':
         _loadData();
+        break;
+      case 'Load JSON from assets':
+        _loadLocalData();
         break;
       case 'Web':
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const WebPage(title: 'Web')),
+          MaterialPageRoute(builder: (context) => const WebPage(title: 'Web')),
         );
         break;
       case 'Settings':
@@ -67,7 +77,12 @@ class _MyHomePageState extends State<MyHomePage> {
           PopupMenuButton<String>(
             onSelected: handleClick,
             itemBuilder: (BuildContext context) {
-              return {'Load JSON', 'Web', 'Settings'}.map((String choice) {
+              return {
+                'Load JSON remote(cached)',
+                'Load JSON from assets',
+                'Web',
+                'Settings'
+              }.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
                   child: Text(choice),
