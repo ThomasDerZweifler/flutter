@@ -20,7 +20,7 @@ class StartRepository {
     final String s = await rootBundle.loadString('assets/demo.json');
 
     final data = await json.decode(s);
-    
+
     if (kDebugMode) {
       print('returns data from assets');
     }
