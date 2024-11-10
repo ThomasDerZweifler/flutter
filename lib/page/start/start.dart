@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/page/start/repository.dart';
 
+import '../pdf/start.dart';
 import '../settings/start.dart';
 import '../web/start.dart';
 
@@ -52,6 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => const WebPage(title: 'Web')),
         );
         break;
+      case 'Pdf':
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PdfPage(title: 'Pdf')),
+        );
+        break;
       case 'Settings':
         Navigator.push(
           context,
@@ -81,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 'Load JSON remote(cached)',
                 'Load JSON from assets',
                 'Web',
+                'Pdf',
                 'Settings'
               }.map((String choice) {
                 return PopupMenuItem<String>(
